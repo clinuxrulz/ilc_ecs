@@ -8,6 +8,12 @@ const main = async () => {
     const wasmLib = await loadWasm();
 
     wasmLib.hello_world();
+
+    //Works!
+    const ptr = wasmLib.start_frp("hello from sodium!", x => document.getElementById("text").innerText= x); 
+
+    //Doesn't work...
+    wasmLib.send_frp(ptr, 42);
 }
 
 main();

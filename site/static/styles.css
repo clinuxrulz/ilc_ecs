@@ -16,4 +16,13 @@
     background: -ms-radial-gradient(center, ellipse cover, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 0%,rgba(17,17,17,1) 100%); /* IE10+ */
     background: radial-gradient(ellipse at center, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 0%,rgba(17,17,17,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#111111',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+    font-family: sans-serif;
+}
+
+#text {
+    font-size: xx-large;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
 }
