@@ -1,0 +1,32 @@
+[package]
+name = "app"
+version = "1.0.0"
+edition = '2018'
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+lto = true
+
+[dependencies]
+wasm-bindgen = "0.2.27"
+js-sys = "0.3.4"
+sodium-rust-push-pull = {git = "https://github.com/clinuxrulz/sodium-rust-push-pull"}
+
+[dependencies.web-sys]
+version = "0.3.4"
+features = [
+  'CanvasRenderingContext2d',
+  'CssStyleDeclaration',
+  'Document',
+  'DomRect',
+  'Element',
+  'EventTarget',
+  'HtmlCanvasElement',
+  'HtmlElement',
+  'MouseEvent',
+  'Node',
+  'Window',
+  'console',
+]

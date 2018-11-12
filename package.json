@@ -1,0 +1,35 @@
+{
+  "name": "hello-rust-sodium-wasm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf ./dist/* && rimraf ./target",
+    "bundle": "npm run _clean:dist && npm run _build:rust:prod && cross-env NODE_ENV=production webpack --progress --config webpack.prod.js && cp -R ./site/static ./dist/ && cp ./site/_redirects ./dist/",
+    "dev": "npm run _build:rust:dev && npm-run-all -p _dev:webpack-server _dev:watch:rust",
+    "_clean:dist": "rimraf ./dist",
+    "_clean:rust": "rimraf ./target",
+    "_dev:webpack-server": "cross-env NODE_ENV=development webpack-dev-server --progress --open --config webpack.dev.js",
+    "_dev:watch:rust": "chokidar \"**/*.rs\" -c \"npm run _build:rust:dev\"",
+    "_build:rust:prod": "cargo +nightly build --target wasm32-unknown-unknown --release && npm run _rust:bindgen:release",
+    "_build:rust:dev": "cargo +nightly build --target wasm32-unknown-unknown && npm run _rust:bindgen:dev",
+    "_rust:bindgen:dev": "wasm-bindgen target/wasm32-unknown-unknown/debug/app.wasm --out-dir ./target",
+    "_rust:bindgen:release": "wasm-bindgen target/wasm32-unknown-unknown/release/app.wasm --out-dir ./target"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "10.12.5",
+    "cross-env": "5.2.0",
+    "fork-ts-checker-webpack-plugin": "0.4.15",
+    "html-webpack-plugin": "3.2.0",
+    "npm-run-all": "4.1.3",
+    "rimraf": "2.6.2",
+    "source-map-loader": "0.2.4",
+    "terser-webpack-plugin": "1.1.0",
+    "ts-loader": "5.3.0",
+    "typescript": "3.1.6",
+    "webpack": "4.25.1",
+    "webpack-cli": "3.1.2",
+    "webpack-dev-server": "3.1.10"
+  }
+}
