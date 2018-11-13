@@ -22,7 +22,7 @@ pub fn sodium_ctx_new() -> *const SodiumCtx {
 }
 
 #[wasm_bindgen]
-pub fn start_frp(sodium_ctx: *const SodiumCtx, state:&JsValue, on_tick:&js_sys::Function) -> *mut StreamSink<i32> { 
+pub fn start_frp(sodium_ctx: *const SodiumCtx, prefix:&JsValue, on_tick:&js_sys::Function) -> *mut StreamSink<i32> { 
     let this = &JsValue::null();
     
     let sodium_ctx = unsafe { &*sodium_ctx };
@@ -32,14 +32,15 @@ pub fn start_frp(sodium_ctx: *const SodiumCtx, state:&JsValue, on_tick:&js_sys::
     // these 3 are being captured, so clone the reference to obtain the
     // value of type js-reference instead of the reference to a js-reference
     let this = this.clone();
-    let state = state.clone();
+    let prefix = prefix.as_string().expect("prefix must be a string!");
     let on_tick = on_tick.clone();
     
     s_tick.listen(move |now| { // <-- "move" to allow the values to be moved into and owned by the lambda
-        on_tick.call1(&this, &state);
+        let now = now.to_string();
+        let output = format!("{}{}", prefix, now);
+        let output = JsValue::from_str(&output);
+        on_tick.call1(&this, &output);
     });
-
-    s_tick.send(&0); //this works!
 
     //try to return the stream for further sending via js
     let boxed = Box::new(s_tick);
