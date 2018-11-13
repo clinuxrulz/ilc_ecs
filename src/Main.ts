@@ -9,8 +9,10 @@ const main = async () => {
 
     wasmLib.hello_world();
 
+    var sodium_ctx = wasmLib.sodium_ctx_new();
+
     //Works!
-    const ptr = wasmLib.start_frp("hello from sodium!", x => document.getElementById("text").innerText= x); 
+    const ptr = wasmLib.start_frp(sodium_ctx, "hello from sodium!", x => document.getElementById("text").innerText= x); 
 
     //Doesn't work...
     wasmLib.send_frp(ptr, 42);
