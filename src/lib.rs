@@ -17,13 +17,18 @@ pub fn hello_world() {
 }
 
 #[wasm_bindgen]
-pub fn start_frp(state:&JsValue, on_tick:&js_sys::Function) -> *mut StreamSink<i32> { 
+pub fn sodium_ctx_new() -> *const SodiumCtx {
+    Box::into_raw(Box::new(SodiumCtx::new()))
+}
+
+#[wasm_bindgen]
+pub fn start_frp(sodium_ctx: *const SodiumCtx, state:&JsValue, on_tick:&js_sys::Function) -> *mut StreamSink<i32> { 
     let this = &JsValue::null();
-   
-    let mut sodium_ctx = SodiumCtx::new();
-    let sodium_ctx = &mut sodium_ctx;
-    let s_tick: StreamSink<i32> = sodium_ctx.new_stream_sink();
     
+    let sodium_ctx = unsafe { &*sodium_ctx };
+    
+    let s_tick: StreamSink<i32> = sodium_ctx.new_stream_sink();
+
     // these 3 are being captured, so clone the reference to obtain the
     // value of type js-reference instead of the reference to a js-reference
     let this = this.clone();
