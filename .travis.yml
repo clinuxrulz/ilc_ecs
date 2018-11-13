@@ -23,9 +23,6 @@ install:
   - npm install
 
 script:
-  - npm run test:jest
-
-after_success:
   - npm run bundle
 
 deploy:
