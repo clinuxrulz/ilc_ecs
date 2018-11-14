@@ -42,16 +42,20 @@ pub fn start_frp(sodium_ctx: *const SodiumCtx, prefix:&JsValue, on_tick:&js_sys:
         on_tick.call1(&this, &output);
     });
 
-    //try to return the stream for further sending via js
+    //return the stream for further sending via js
+    //this is done by putting it in a box and returning a pointer
     let boxed = Box::new(s_tick);
     Box::into_raw(boxed)
 }
 
 #[wasm_bindgen]
 pub fn send_frp(ptr: *mut StreamSink<i32>, value: i32) {
-    //Something here is failing
-
+    //extract the boxed pointer to get the stream
     let s = unsafe { Box::from_raw(ptr) };
+
+    //now we can use it as we wish :D
     s.send(&value);
+
+    //keep the stream as a raw pointer - don't Drop it
     mem::forget(s);
 }
