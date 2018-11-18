@@ -4,12 +4,12 @@
 extern crate wasm_bindgen;
 extern crate web_sys; 
 extern crate js_sys;
-extern crate sodium_rust_push_pull;
+extern crate sodium_rust;
 
 use core::{mem};
 use web_sys::console;
 use wasm_bindgen::prelude::*;
-use sodium_rust_push_pull::sodium::*;
+use sodium_rust::sodium::*;
 
 #[wasm_bindgen]
 pub fn hello_world() { 

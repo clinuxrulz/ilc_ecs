@@ -12,7 +12,7 @@ lto = true
 [dependencies]
 wasm-bindgen = "0.2.27"
 js-sys = "0.3.4"
-sodium-rust-push-pull = {git = "https://github.com/clinuxrulz/sodium-rust-push-pull"}
+sodium-rust = "1.0"
 
 [dependencies.web-sys]
 version = "0.3.4"
