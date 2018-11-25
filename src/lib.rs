@@ -6,6 +6,8 @@ extern crate web_sys;
 extern crate js_sys;
 extern crate sodium_rust;
 
+mod ecs;
+
 use core::{mem};
 use web_sys::console;
 use wasm_bindgen::prelude::*;
