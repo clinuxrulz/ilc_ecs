@@ -1,5 +1,5 @@
-pub use crate::ecs::ComponentType;
+use crate::ecs::ComponentType;
 
 pub trait IsComponent {
-    fn get_component_type(&self) -> ComponentType<Self>;
+    fn get_component_type() -> ComponentType<Self>;
 }
